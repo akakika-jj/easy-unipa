@@ -21,20 +21,21 @@ function PublicRoute({ children }) {
 function AppRoutes() {
   return (
     <Routes>
-      {/* スプラッシュ（起動時） */}
+      {/* タイトル画面（起動時） */}
+      <Route path="/" element={<SplashPage />} />
       <Route path="/splash" element={<SplashPage />} />
 
-      {/* ログイン・新規登録 */}
+      {/* ログイン */}
       <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
 
-      {/* ホーム画面（ログイン後の分岐） */}
+      {/* ホーム */}
       <Route path="/home" element={<PrivateRoute><HomePage /></PrivateRoute>} />
 
       {/* 時間割セットアップ */}
       <Route path="/setup" element={<PrivateRoute><SetupPage /></PrivateRoute>} />
 
       {/* 時間割表 */}
-      <Route path="/" element={<PrivateRoute><TimetablePage /></PrivateRoute>} />
+      <Route path="/timetable" element={<PrivateRoute><TimetablePage /></PrivateRoute>} />
 
       {/* 授業詳細 */}
       <Route path="/class/:day/:period" element={<PrivateRoute><ClassDetailPage /></PrivateRoute>} />
@@ -42,8 +43,8 @@ function AppRoutes() {
       {/* 出欠管理 */}
       <Route path="/class/:day/:period/attendance" element={<PrivateRoute><AttendancePage /></PrivateRoute>} />
 
-      {/* それ以外はスプラッシュへ */}
-      <Route path="*" element={<Navigate to="/splash" replace />} />
+      {/* それ以外はタイトルへ */}
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
 }

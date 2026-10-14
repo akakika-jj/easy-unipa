@@ -37,7 +37,7 @@ export default function HomePage() {
           {/* 時間割表 */}
           <button
             className="menu-card primary"
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/timetable')}
           >
             <span className="menu-icon">📅</span>
             <span className="menu-label">時間割表</span>

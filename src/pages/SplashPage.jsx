@@ -1,23 +1,8 @@
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../contexts/AuthContext'
 import './SplashPage.css'
 
 export default function SplashPage() {
   const navigate = useNavigate()
-  const { currentUser } = useAuth()
-
-  // 2秒後に自動で次の画面へ
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (currentUser) {
-        navigate('/home')
-      } else {
-        navigate('/login')
-      }
-    }, 2000)
-    return () => clearTimeout(timer)
-  }, [currentUser, navigate])
 
   return (
     <div className="splash-page">
@@ -25,10 +10,21 @@ export default function SplashPage() {
         <div className="splash-icon">📚</div>
         <h1 className="splash-title">easy unipa</h1>
         <p className="splash-subtitle">大学授業情報管理アプリ</p>
-        <div className="splash-dots">
-          <span /><span /><span />
-        </div>
+        <p className="splash-catch">時間割・出欠・成績をまとめて管理</p>
+
+        <button
+          className="splash-start-btn"
+          onClick={() => navigate('/login')}
+        >
+          はじめる →
+        </button>
       </div>
+
+      {/* 背景の装飾 */}
+      <div className="splash-deco deco1">📖</div>
+      <div className="splash-deco deco2">✏️</div>
+      <div className="splash-deco deco3">🎓</div>
+      <div className="splash-deco deco4">📝</div>
     </div>
   )
 }

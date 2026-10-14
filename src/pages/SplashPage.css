@@ -4,61 +4,93 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  position: relative;
 }
 
 .splash-content {
   text-align: center;
   color: white;
-  animation: fadeInUp 0.6s ease;
+  padding: 2rem;
+  animation: fadeInUp 0.7s ease;
+  z-index: 1;
 }
 
 .splash-icon {
   font-size: 5rem;
   margin-bottom: 1rem;
-  animation: bounce 1s ease infinite alternate;
+  display: block;
+  animation: float 2.5s ease-in-out infinite;
 }
 
-@keyframes bounce {
-  from { transform: translateY(0); }
-  to   { transform: translateY(-10px); }
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-12px); }
 }
 
 .splash-title {
-  font-size: 2.8rem;
+  font-size: 3rem;
   font-weight: 800;
   margin: 0 0 0.4rem;
   letter-spacing: 0.05em;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.2);
 }
 
 .splash-subtitle {
   font-size: 1rem;
   opacity: 0.85;
-  margin: 0 0 2rem;
+  margin: 0 0 0.5rem;
 }
 
-.splash-dots {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
+.splash-catch {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  margin: 0 0 2.5rem;
 }
 
-.splash-dots span {
-  width: 8px;
-  height: 8px;
-  background: rgba(255,255,255,0.7);
-  border-radius: 50%;
-  animation: dot-blink 1.2s ease infinite;
+.splash-start-btn {
+  background: white;
+  color: #667eea;
+  border: none;
+  border-radius: 50px;
+  padding: 0.9rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  transition: transform 0.15s, box-shadow 0.15s;
+  letter-spacing: 0.05em;
 }
 
-.splash-dots span:nth-child(2) { animation-delay: 0.2s; }
-.splash-dots span:nth-child(3) { animation-delay: 0.4s; }
-
-@keyframes dot-blink {
-  0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
-  40%           { opacity: 1;   transform: scale(1.2); }
+.splash-start-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.25);
 }
+
+.splash-start-btn:active {
+  transform: scale(0.97);
+}
+
+/* 背景の装飾アイコン */
+.splash-deco {
+  position: absolute;
+  font-size: 3rem;
+  opacity: 0.1;
+  animation: float 3s ease-in-out infinite;
+  user-select: none;
+}
+
+.deco1 { top: 10%; left: 8%;  animation-delay: 0s;    font-size: 2.5rem; }
+.deco2 { top: 15%; right: 10%; animation-delay: 0.5s; font-size: 2rem; }
+.deco3 { bottom: 15%; left: 12%; animation-delay: 1s;  font-size: 3rem; }
+.deco4 { bottom: 20%; right: 8%; animation-delay: 1.5s; font-size: 2.5rem; }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(30px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (min-width: 640px) {
+  .splash-title { font-size: 4rem; }
+  .splash-subtitle { font-size: 1.2rem; }
 }
