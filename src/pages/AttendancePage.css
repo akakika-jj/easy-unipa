@@ -1,0 +1,282 @@
+.attendance-page {
+  min-height: 100vh;
+  background: #f5f7ff;
+}
+
+.attendance-content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.att-section {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+}
+
+/* 集計グリッド */
+.count-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.count-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem 0.25rem;
+  border-radius: 10px;
+  gap: 0.2rem;
+}
+
+.count-card.present { background: #f0fff4; border: 2px solid #c6f6d5; }
+.count-card.excused { background: #ebf8ff; border: 2px solid #bee3f8; }
+.count-card.late    { background: #fffff0; border: 2px solid #fefcbf; }
+.count-card.absent  { background: #fff5f5; border: 2px solid #fed7d7; }
+
+.count-symbol { font-size: 1.2rem; }
+.count-num    { font-size: 1.5rem; font-weight: 800; color: #333; }
+.count-label  { font-size: 0.7rem; color: #666; }
+
+/* 出席率バー */
+.rate-bar-wrap { margin-top: 0.5rem; }
+.rate-label { font-size: 0.9rem; color: #555; margin-bottom: 0.4rem; }
+.rate-bar {
+  height: 12px;
+  background: #e0e0e0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.rate-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 6px;
+  transition: width 0.5s ease;
+}
+
+/* 成績設定 */
+.grade-inputs {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.grade-input-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.grade-input-group label {
+  font-size: 0.82rem;
+  color: #666;
+}
+
+.grade-input {
+  padding: 0.55rem 0.75rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.grade-input:focus { border-color: #667eea; }
+
+.save-grade-btn {
+  padding: 0.55rem 1.25rem;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-bottom: 0.75rem;
+}
+
+.impact-card {
+  background: #f0f3ff;
+  border: 2px solid #667eea;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  text-align: center;
+}
+
+.impact-card p {
+  margin: 0 0 0.3rem;
+  font-size: 0.82rem;
+  color: #555;
+}
+
+.impact-value {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.25rem;
+  margin: 0.3rem 0;
+}
+
+.impact-num {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #667eea;
+}
+
+.impact-unit {
+  font-size: 1rem;
+  color: #888;
+}
+
+.impact-note {
+  font-size: 0.78rem;
+  color: #888;
+  margin: 0 !important;
+}
+
+/* 追加フォーム */
+.add-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.add-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.add-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.add-group label {
+  font-size: 0.82rem;
+  color: #666;
+}
+
+.date-input {
+  padding: 0.55rem 0.75rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.date-input:focus { border-color: #667eea; }
+
+.status-buttons {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.status-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.excuse-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.flex-1 { flex: 1; }
+
+.excuse-select, .excuse-note {
+  padding: 0.55rem 0.75rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  font-family: inherit;
+}
+
+.excuse-note { width: 100%; box-sizing: border-box; }
+
+.add-btn {
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.add-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* 記録一覧 */
+.records-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.record-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  flex-wrap: wrap;
+}
+
+.record-date {
+  color: #555;
+  min-width: 6rem;
+  font-weight: 500;
+}
+
+.record-status {
+  font-weight: 700;
+  min-width: 5rem;
+}
+
+.record-excuse {
+  color: #888;
+  font-size: 0.8rem;
+  flex: 1;
+}
+
+.delete-record-btn {
+  margin-left: auto;
+  background: #fed7d7;
+  color: #c53030;
+  border: none;
+  border-radius: 6px;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.no-data {
+  color: #aaa;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 1rem;
+  font-style: italic;
+}

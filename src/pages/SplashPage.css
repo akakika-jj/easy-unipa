@@ -1,0 +1,64 @@
+.splash-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.splash-content {
+  text-align: center;
+  color: white;
+  animation: fadeInUp 0.6s ease;
+}
+
+.splash-icon {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+  animation: bounce 1s ease infinite alternate;
+}
+
+@keyframes bounce {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-10px); }
+}
+
+.splash-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin: 0 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+
+.splash-subtitle {
+  font-size: 1rem;
+  opacity: 0.85;
+  margin: 0 0 2rem;
+}
+
+.splash-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.splash-dots span {
+  width: 8px;
+  height: 8px;
+  background: rgba(255,255,255,0.7);
+  border-radius: 50%;
+  animation: dot-blink 1.2s ease infinite;
+}
+
+.splash-dots span:nth-child(2) { animation-delay: 0.2s; }
+.splash-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dot-blink {
+  0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+  40%           { opacity: 1;   transform: scale(1.2); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

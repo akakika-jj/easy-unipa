@@ -1,0 +1,230 @@
+/* ローディング */
+.loading-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: #667eea;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e0e0e0;
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ページ */
+.timetable-page {
+  min-height: 100vh;
+  background: #f5f7ff;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ヘッダー */
+.app-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.app-header h1 { font-size: 1.2rem; margin: 0; }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.user-email {
+  font-size: 0.75rem;
+  opacity: 0.85;
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .user-email { display: inline; }
+  .app-header h1 { font-size: 1.4rem; }
+}
+
+.logout-btn {
+  background: rgba(255,255,255,0.2);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 6px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.logout-btn:hover { background: rgba(255,255,255,0.35); }
+
+/* ツールバー */
+.toolbar {
+  padding: 0.5rem 1rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.toggle-sat-btn {
+  padding: 0.4rem 0.85rem;
+  border-radius: 20px;
+  border: 2px solid #667eea;
+  background: white;
+  color: #667eea;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.toggle-sat-btn.active { background: #667eea; color: white; }
+
+/* 時間割グリッド */
+.timetable-wrapper {
+  padding: 0 0.4rem 1rem;
+  overflow-x: auto;
+  flex: 1;
+}
+
+.timetable-grid {
+  display: grid;
+  gap: 5px;
+  min-width: 300px;
+}
+
+.grid-corner { background: transparent; }
+
+/* 曜日ヘッダー */
+.day-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-align: center;
+  padding: 0.5rem 0;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+/* 時限ラベル */
+.period-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #667eea;
+  font-weight: 700;
+}
+
+.period-num { font-size: 1rem; line-height: 1; }
+.period-text { font-size: 0.6rem; }
+
+/* 授業マス */
+.class-cell {
+  min-height: 90px;   /* 6限分の高さを5限で使うので大きく */
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0.5rem;
+  transition: transform 0.15s, box-shadow 0.15s;
+  text-align: left;
+  width: 100%;
+}
+
+.class-cell:active { transform: scale(0.97); }
+
+/* 授業あり */
+.has-class {
+  background: white;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+  border: 2px solid #667eea;
+}
+
+.has-class:hover {
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.35);
+  transform: translateY(-1px);
+}
+
+/* セル内のレイアウト */
+.cell-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  width: 100%;
+}
+
+.class-name {
+  font-size: 0.78rem;
+  color: #222;
+  font-weight: 700;
+  line-height: 1.3;
+  word-break: break-all;
+}
+
+/* メタ情報（教室・教授・単位） */
+.cell-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.meta-room,
+.meta-teacher,
+.meta-credits {
+  font-size: 0.65rem;
+  color: #666;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.meta-room    { color: #3182ce; }
+.meta-teacher { color: #6b7280; }
+.meta-credits { color: #7c3aed; }
+
+/* 授業なし */
+.empty-cell {
+  background: white;
+  border: 2px dashed #d0d8f0;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-cell:hover {
+  border-color: #667eea;
+  background: #f0f3ff;
+}
+
+.empty-text {
+  font-size: 1.3rem;
+  color: #c0c8e8;
+}
+
+/* PC向け */
+@media (min-width: 640px) {
+  .timetable-wrapper { padding: 0 1rem 1.5rem; }
+  .timetable-grid { gap: 6px; }
+
+  .class-cell { min-height: 110px; padding: 0.65rem; }
+  .class-name { font-size: 0.88rem; }
+  .meta-room,
+  .meta-teacher,
+  .meta-credits { font-size: 0.72rem; }
+}
