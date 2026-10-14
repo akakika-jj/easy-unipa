@@ -1,4 +1,3 @@
-/* ローディング */
 .loading-screen {
   min-height: 100vh;
   display: flex;
@@ -17,10 +16,8 @@
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
-
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ページ */
 .timetable-page {
   min-height: 100vh;
   background: #f5f7ff;
@@ -32,94 +29,74 @@
 .app-header {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  padding: 0.75rem 1rem;
+  padding: 0.65rem 0.75rem;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  gap: 0.5rem;
   position: sticky;
   top: 0;
   z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
-.app-header h1 { font-size: 1.2rem; margin: 0; }
-
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+.app-header h1 {
+  flex: 1;
+  font-size: 1.1rem;
+  margin: 0;
+  text-align: center;
 }
 
-.user-email {
-  font-size: 0.75rem;
-  opacity: 0.85;
-  display: none;
-}
-
-@media (min-width: 640px) {
-  .user-email { display: inline; }
-  .app-header h1 { font-size: 1.4rem; }
-}
-
-.logout-btn {
+.header-back-btn {
   background: rgba(255,255,255,0.2);
   color: white;
   border: 1px solid rgba(255,255,255,0.4);
   border-radius: 6px;
-  padding: 0.35rem 0.75rem;
-  font-size: 0.85rem;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.82rem;
   cursor: pointer;
-  transition: background 0.2s;
-}
-.logout-btn:hover { background: rgba(255,255,255,0.35); }
-
-/* ツールバー */
-.toolbar {
-  padding: 0.5rem 1rem;
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
+  white-space: nowrap;
 }
 
-.toggle-sat-btn {
-  padding: 0.4rem 0.85rem;
-  border-radius: 20px;
-  border: 2px solid #667eea;
+.sat-toggle {
+  background: rgba(255,255,255,0.2);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 6px;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.82rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.sat-toggle.active {
   background: white;
   color: #667eea;
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: all 0.2s;
 }
-.toggle-sat-btn.active { background: #667eea; color: white; }
 
-/* 時間割グリッド */
+/* グリッド */
 .timetable-wrapper {
-  padding: 0 0.4rem 1rem;
+  padding: 0.4rem 0.4rem 1rem;
   overflow-x: auto;
   flex: 1;
 }
 
 .timetable-grid {
   display: grid;
-  gap: 5px;
-  min-width: 300px;
+  gap: 4px;
+  min-width: 280px;
 }
 
 .grid-corner { background: transparent; }
 
-/* 曜日ヘッダー */
 .day-header {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   text-align: center;
-  padding: 0.5rem 0;
+  padding: 0.45rem 0;
   border-radius: 8px;
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 }
 
-/* 時限ラベル */
 .period-label {
   display: flex;
   flex-direction: column;
@@ -128,40 +105,35 @@
   color: #667eea;
   font-weight: 700;
 }
-
-.period-num { font-size: 1rem; line-height: 1; }
-.period-text { font-size: 0.6rem; }
+.period-num { font-size: 0.95rem; line-height: 1; }
+.period-text { font-size: 0.58rem; }
 
 /* 授業マス */
 .class-cell {
-  min-height: 90px;   /* 6限分の高さを5限で使うので大きく */
+  min-height: 88px;
   border-radius: 10px;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  padding: 0.5rem;
+  padding: 0.5rem 0.45rem;
   transition: transform 0.15s, box-shadow 0.15s;
   text-align: left;
   width: 100%;
 }
-
 .class-cell:active { transform: scale(0.97); }
 
-/* 授業あり */
 .has-class {
   background: white;
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+  box-shadow: 0 2px 8px rgba(102,126,234,0.2);
   border: 2px solid #667eea;
 }
-
 .has-class:hover {
-  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.35);
+  box-shadow: 0 4px 16px rgba(102,126,234,0.35);
   transform: translateY(-1px);
 }
 
-/* セル内のレイアウト */
 .cell-content {
   display: flex;
   flex-direction: column;
@@ -169,62 +141,43 @@
   width: 100%;
 }
 
+/* 授業名：括弧除去済み、2行まで */
 .class-name {
   font-size: 0.78rem;
   color: #222;
   font-weight: 700;
-  line-height: 1.3;
-  word-break: break-all;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-/* メタ情報（教室・教授・単位） */
-.cell-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-}
-
-.meta-room,
-.meta-teacher,
-.meta-credits {
-  font-size: 0.65rem;
-  color: #666;
-  line-height: 1.3;
+/* 教室番号：大きめ */
+.meta-room {
+  font-size: 0.78rem;
+  color: #3182ce;
+  font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.meta-room    { color: #3182ce; }
-.meta-teacher { color: #6b7280; }
-.meta-credits { color: #7c3aed; }
-
-/* 授業なし */
 .empty-cell {
   background: white;
   border: 2px dashed #d0d8f0;
   align-items: center;
   justify-content: center;
 }
+.empty-cell:hover { border-color: #667eea; background: #f0f3ff; }
+.empty-text { font-size: 1.3rem; color: #c0c8e8; }
 
-.empty-cell:hover {
-  border-color: #667eea;
-  background: #f0f3ff;
-}
-
-.empty-text {
-  font-size: 1.3rem;
-  color: #c0c8e8;
-}
-
-/* PC向け */
+/* PC */
 @media (min-width: 640px) {
-  .timetable-wrapper { padding: 0 1rem 1.5rem; }
+  .timetable-wrapper { padding: 0.5rem 1rem 1.5rem; }
   .timetable-grid { gap: 6px; }
-
-  .class-cell { min-height: 110px; padding: 0.65rem; }
+  .class-cell { min-height: 100px; padding: 0.65rem 0.6rem; }
   .class-name { font-size: 0.88rem; }
-  .meta-room,
-  .meta-teacher,
-  .meta-credits { font-size: 0.72rem; }
+  .meta-room { font-size: 0.82rem; }
+  .app-header h1 { font-size: 1.3rem; }
 }

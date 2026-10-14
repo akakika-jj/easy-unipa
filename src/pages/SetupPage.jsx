@@ -12,18 +12,14 @@ const PERIODS = [1, 2, 3, 4, 5] // 5限まで
 const AI_PROMPT_SAMPLE = `大学のシラバスに登録されている時間割表の画像を送ります。
 この画像を見て、各授業を以下の形式で1行ずつテキストにまとめてください。
 
-形式：曜日（漢字1文字）＋限目（数字）＋半角スペース＋授業名＋半角スペース＋教室＋半角スペース＋教授名＋半角スペース＋単位数
-例：
-月1 英語コミュニケーション A301 山田太郎 2.0
-月2 経営学入門 B201 鈴木花子 2.0
-火1 統計学 C101 佐藤次郎 1.0
-水3 プログラミング基礎 A棟PC室 田中三郎 2.0
+形式：
+月1 英語コミュニケーション A301 山田太郎 単位数:2.0
 
 ルール：
-・曜日は「月火水木金土」の漢字1文字で書いてください
-・授業が入っていないコマは書かなくてOKです
-・授業名・教室・教授名・単位数はシラバスに表示されているそのままの内容で書いてください
-・教室や教授名・単位数が不明な場合は省略してOKです（授業名だけでも可）`
+① 曜日は「月火水木金土」の漢字1文字で書いてください
+② 授業が入っていないコマは書かなくてOKです
+③ 授業名・教室・教授名・単位数はシラバスに表示されているそのままの内容で書いてください
+④ 教室や教授名・単位数が不明な場合は省略してOKです（授業名だけでも可）`
 
 // テキストを解析して時間割データに変換
 // 形式：「月1 授業名 教室 教授名 単位数」（教室以降は省略可）
@@ -33,8 +29,8 @@ function parseScheduleText(text) {
   const lines = text.split('\n').map(l => l.trim()).filter(l => l !== '')
 
   for (const line of lines) {
-    // 曜日＋限目＋スペース＋残り
-    const match = line.match(/^([月火水木金土])([1-5])\s+(.+)$/)
+    // 曜日＋限目＋スペース（全角・半角どちらでもOK）＋残り
+    const match = line.match(/^([月火水木金土])([1-5])[\s　]+(.+)$/)
     if (!match) {
       errors.push(`「${line}」は認識できませんでした（例：月1 英語 A301 山田太郎 2.0）`)
       continue
@@ -47,9 +43,12 @@ function parseScheduleText(text) {
     const name = rest[0] || ''
     const room = rest[1] || ''
     const teacher = rest[2] || ''
-    // 単位数：数字のみのトークンを探す
-    const creditsToken = rest.find((t, i) => i >= 1 && /^\d+(\.\d+)?$/.test(t))
-    const credits = creditsToken || ''
+    // 単位数：「単位数:2.0」または単純な数字トークンを探す
+    const creditsToken = rest.find((t, i) => i >= 1 && /^単位数[:：]?\d+(\.\d+)?$/.test(t))
+    const creditsNum = creditsToken
+      ? creditsToken.replace(/^単位数[:：]?/, '')
+      : (rest.find((t, i) => i >= 1 && /^\d+(\.\d+)?$/.test(t)) || '')
+    const credits = creditsNum
 
     const key = `${day}_${period}`
     result[key] = { name, room, building: '', teacher, credits, memo: '' }
@@ -172,16 +171,13 @@ export default function SetupPage() {
               </p>
               <div className="ai-prompt-box">
                 <div className="ai-prompt-label">
-                  📋 AIへのお願い文（コピーして使ってください）
+                  📋 プロンプト用（コピーして使ってください）
                 </div>
                 <pre className="ai-prompt-text">{AI_PROMPT_SAMPLE}</pre>
                 <button className="copy-btn" onClick={handleCopyPrompt}>
                   {copied ? '✓ コピーしました！' : '📋 コピーする'}
                 </button>
               </div>
-              <p className="ai-hint-step">
-                ① お願い文と時間割表の画像をAIに送る　→　② AIが出力したテキストを下の欄に貼り付ける　→　③ プレビューを確認して保存
-              </p>
             </div>
 
             <textarea
