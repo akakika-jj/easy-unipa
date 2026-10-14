@@ -11,7 +11,7 @@ export default function SplashPage() {
   useEffect(() => {
     const timer = setTimeout(() => {
       if (currentUser) {
-        navigate('/')
+        navigate('/home')
       } else {
         navigate('/login')
       }

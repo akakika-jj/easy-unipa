@@ -117,3 +117,68 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+.login-logo {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 0.25rem;
+}
+
+.login-app-name {
+  font-size: 1.8rem;
+  text-align: center;
+  margin: 0 0 0.25rem;
+  color: #333;
+  font-weight: 800;
+}
+
+/* テストセクション */
+.test-section {
+  background: #f0fff4;
+  border: 2px solid #9ae6b4;
+  border-radius: 12px;
+  padding: 0.85rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.test-label {
+  font-size: 0.8rem;
+  color: #276749;
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+}
+
+.test-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #38a169, #276749);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.test-btn:hover:not(:disabled) { opacity: 0.9; }
+.test-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* 区切り線 */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  color: #aaa;
+  font-size: 0.85rem;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #e0e0e0;
+}

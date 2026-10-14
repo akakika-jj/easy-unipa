@@ -3,6 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import './LoginPage.css'
 
+// テスト用のダミー認証情報
+const TEST_EMAIL = 'test@easy-unipa.com'
+const TEST_PASSWORD = 'test123456'
+
 export default function LoginPage() {
   const [isLogin, setIsLogin] = useState(true)
   const [email, setEmail] = useState('')
@@ -14,24 +18,39 @@ export default function LoginPage() {
 
   async function handleSubmit(e) {
     e.preventDefault()
+    await doLogin(email, password, isLogin)
+  }
+
+  // テスト用ワンタップログイン
+  async function handleTestLogin() {
+    await doLogin(TEST_EMAIL, TEST_PASSWORD, true)
+  }
+
+  async function doLogin(emailVal, passwordVal, isLoginMode) {
     setError('')
     setLoading(true)
-
     try {
-      if (isLogin) {
-        await login(email, password)
-        navigate('/')
+      if (isLoginMode) {
+        await login(emailVal, passwordVal)
+        navigate('/home')
       } else {
-        if (password.length < 6) {
+        if (passwordVal.length < 6) {
           setError('パスワードは6文字以上にしてください')
           setLoading(false)
           return
         }
-        await signup(email, password)
-        // 新規登録はセットアップ画面へ
+        await signup(emailVal, passwordVal)
         navigate('/setup')
       }
     } catch (err) {
+      // テスト用アカウントが存在しない場合は自動作成
+      if (err.code === 'auth/invalid-credential' && emailVal === TEST_EMAIL) {
+        try {
+          await signup(TEST_EMAIL, TEST_PASSWORD)
+          navigate('/home')
+          return
+        } catch {}
+      }
       if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
         setError('メールアドレスまたはパスワードが正しくありません')
       } else if (err.code === 'auth/email-already-in-use') {
@@ -48,8 +67,23 @@ export default function LoginPage() {
   return (
     <div className="login-container">
       <div className="login-card">
-        <h1>📚 easy unipa</h1>
+        <div className="login-logo">📚</div>
+        <h1 className="login-app-name">easy unipa</h1>
         <p className="login-subtitle">大学授業情報管理アプリ</p>
+
+        {/* テスト用ワンタップボタン */}
+        <div className="test-section">
+          <p className="test-label">🧪 テスト用（ワンタップでログイン）</p>
+          <button
+            className="test-btn"
+            onClick={handleTestLogin}
+            disabled={loading}
+          >
+            {loading ? '処理中...' : 'テストアカウントで今すぐ試す'}
+          </button>
+        </div>
+
+        <div className="divider"><span>または</span></div>
 
         <div className="login-tabs">
           <button
